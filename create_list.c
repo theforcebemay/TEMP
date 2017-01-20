@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#define BUFSIZE 2048
 
 typedef struct 		s_tetr {
 	char			letter;
@@ -82,7 +84,38 @@ void	free_list(t_tetr *go)
 		free(go);
 	}
 }
+int		rows_passed(char *str, int i)
+{
+	int k;
 	
+	k = 0;
+	while (i--)
+	{
+		if (*str++ == '#')
+			k++;
+	}
+	return (k / 4);
+}
+
+t_tetr	*start_tear_apart(char *str);
+
+int		main(int argc, char **argv)
+{
+	char	buf[BUFSIZE];
+	int		fd;
+	int 	bts;
+	if (argc != 2)
+		return (0);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		return (0);
+	bts = read(fd, buf, BUFSIZE);
+	if (bts == -1)
+		return (0);
+	printf("%d", rows_passed(buf, bts));
+	return (0);
+}
+/*	
 
 int		main(void)
 {
@@ -100,3 +133,4 @@ int		main(void)
 	free_list(go);
 	return (0);
 }
+*/
