@@ -92,6 +92,9 @@ int		main(void)
 	lst_push_back(go, create_list('c'));
 	lst_push_back(go, create_list('d'));
 	lst_push_back(go, create_list('e'));
+	lst_push_back(go, create_list('f'));
+	lst_push_back(go, create_list('g'));
+	lst_push_back(go, create_list('h'));
 	print_letters(go);
 	print_reverse_list(go);
 	free_list(go);
