@@ -38,8 +38,11 @@ char	**create_square(int size)
 
 int		main(void)
 {
-	int	size;
-	size = 4;
-	printf("%s\n", create_square(size));
+	int	i;
+	char **sqr;
+	i = 0;
+	sqr = create_square(4);
+	while (sqr[i])
+		printf("%s\n", sqr[i++]);
 	return (0);
 }
