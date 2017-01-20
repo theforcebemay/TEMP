@@ -79,7 +79,7 @@ void	free_list(t_tetr *go)
 			free(temp->next);
 			temp = temp->previous;
 		}
-		free(temp);
+		free(go);
 	}
 }
 	
@@ -98,6 +98,5 @@ int		main(void)
 	print_letters(go);
 	print_reverse_list(go);
 	free_list(go);
-	free(go);
 	return (0);
 }
