@@ -74,7 +74,7 @@ void	free_list(t_tetr *go)
 	{
 		while (temp->next != NULL)
 			temp = temp->next;
-		while (temp = NULL)
+		while (temp != NULL)
 		{
 			free(temp->next);
 			temp = temp->previous;
@@ -98,5 +98,6 @@ int		main(void)
 	print_letters(go);
 	print_reverse_list(go);
 	free_list(go);
+	free(go);
 	return (0);
 }
