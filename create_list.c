@@ -8,7 +8,7 @@ typedef struct 		s_tetr {
 	char			letter;
 	struct s_tetr	*previous;
 	struct s_tetr	*next;
-	short int		*xy;
+	short int		xy[3];
 }					t_tetr;
 
 t_tetr	*create_list(char letter)
@@ -20,7 +20,6 @@ t_tetr	*create_list(char letter)
 	ret->letter = letter;
 	ret->next = NULL;
 	ret->previous = NULL;
-	ret->xy = NULL;
 	return (ret);
 }
 
@@ -45,6 +44,10 @@ void	print_letters(t_tetr *start)
 		while (start != NULL)
 		{
 			printf("%c\n", start->letter);
+			printf("%d\n", start->xy[0]);
+			printf("%d\n", start->xy[1]);
+			printf("%d\n", start->xy[2]);
+			printf("%d\n", start->xy[3]);
 			start = (t_tetr *)start->next;
 		}
 	}
@@ -97,13 +100,39 @@ int		rows_passed(char *str, int i)
 	return (k / 4);
 }
 
-t_tetr	*start_tear_apart(char *str);
+t_tetr	*start_tear_apart(char *str, t_tetr *start, int size)
+{
+	short int 		i;
+	int 			k;
+	struct s_tetr	*ret;
+	char			character;
+
+	character = 'A';
+	i = 0;
+	k = 0;
+	ret = create_list(character++);
+	while (i < size)
+	{
+		if (str[i] == '#')
+		{
+			ret->xy[k] = i;
+			k++;
+		}
+		if (k % 3 == 0)
+		{
+			lst_push_back(start, ret);
+			return (start);
+		}
+		i++;
+	}
+}
 
 int		main(int argc, char **argv)
 {
 	char	buf[BUFSIZE];
 	int		fd;
 	int 	bts;
+	t_tetr	*s;
 	if (argc != 2)
 		return (0);
 	fd = open(argv[1], O_RDONLY);
@@ -113,6 +142,8 @@ int		main(int argc, char **argv)
 	if (bts == -1)
 		return (0);
 	printf("%d", rows_passed(buf, bts));
+	s = start_tear_apart(buf, create_list('S'), 21);
+	print_letters(s);	
 	return (0);
 }
 /*	
