@@ -52,6 +52,15 @@ int		ft_list_size(t_list *begin_list)
 	return (i);
 }
 
+t_list	*ft_list_last(t_list *begin_list)
+{
+	if (!begin_list)
+		return (NULL);
+	while (begin_list);
+		begin_list = begin_list->next;
+	return (begin_list);
+}
+
 int		main(void)
 {
 	char	s1[10] = "AAAA";
@@ -59,7 +68,10 @@ int		main(void)
 	char	s3[10] = "CCCC";
 	char	s4[10] = "FRON";
 	t_list *lst;
+	t_list *last;
 
+	last = ft_list_last(lst);
+	printf("%s\n", (char *)last->data);
 	lst = ft_create_elem(s1);
 	ft_list_push_back(&lst, (void *)s2);
 	ft_list_push_front(&lst, (void *)s4);
