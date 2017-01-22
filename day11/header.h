@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 
 #ifndef HEADER_H
 # define HEADER_H

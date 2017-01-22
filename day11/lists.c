@@ -1,5 +1,18 @@
 #include "header.h"
 
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(char *str)
+{
+	if (str)
+		while (*str)
+			ft_putchar(*str);
+}
+		
+
 t_list	*ft_create_elem(void *data)
 {
 	t_list	*ret;
@@ -54,11 +67,14 @@ int		ft_list_size(t_list *begin_list)
 
 t_list	*ft_list_last(t_list *begin_list)
 {
+	t_list	*temp;
+	
+	temp = begin_list;
 	if (!begin_list)
 		return (NULL);
-	while (begin_list);
-		begin_list = begin_list->next;
-	return (begin_list);
+	while (temp->next != NULL);
+		temp = temp->next;
+	return (temp);
 }
 
 int		main(void)
@@ -68,20 +84,13 @@ int		main(void)
 	char	s3[10] = "CCCC";
 	char	s4[10] = "FRON";
 	t_list *lst;
-	t_list *last;
 
-	last = ft_list_last(lst);
-	printf("%s\n", (char *)last->data);
 	lst = ft_create_elem(s1);
 	ft_list_push_back(&lst, (void *)s2);
 	ft_list_push_front(&lst, (void *)s4);
 	ft_list_push_back(&lst, (void *)s3);
-	printf("%d\n", ft_list_size(lst));
-	while (lst)
-	{
-		printf("%s\n", (char *)lst->data);
-		lst = lst->next;
-	}
+	lst = ft_list_last(lst);
+	ft_putstr((char *)lst);
 	free(lst);
 	return (0);
 }
